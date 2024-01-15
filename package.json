@@ -1,0 +1,20 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "vanilla js calculator for the Odin Project curriculum",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "minify": "terser index.js -o index.min.js",
+    "lint": "standard --fix"
+  },
+  "author": "robertron624",
+  "license": "ISC",
+  "devDependencies": {
+    "standard": "^17.1.0",
+    "terser": "^5.26.0"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  }
+}
