@@ -15,8 +15,9 @@ The javascript linked in the html file is the minified version located in `./dis
 
 ## Screenshot 
 
-![Calculator demo](./calculator.png)
+![image](https://github.com/Robertron624/OdinProject-calculator/assets/72587880/64f388f2-1809-4c6f-a81a-53c8b23a1d82)
+
 
 ## Live demo
 
-[Github pages](https://Robetron624.github.io/vanilla-javascript-calculator/)
+[Click here](https://robertron624.github.io/OdinProject-calculator/)
