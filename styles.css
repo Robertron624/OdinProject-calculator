@@ -144,18 +144,25 @@ main .calculator {
 }
 
 .calculator .display {
-    height: 50px;
+
+
     background-color: hsl(0, 0%, 100%);
     border-radius: 5px;
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
     padding: 0 10px;
     font-size: 1.5rem;
     margin-bottom: 20px;
 }
 
-.calculator .display .display-result {
+.calculator .display .display__history {
+    font-size: 1rem;
+    color: hsl(0, 0%, 50%);
+}
+
+.calculator .display .display__result {
     font-size: 1.5rem;
 }
 

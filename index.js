@@ -2,6 +2,7 @@ function main () {
   // DOM elements
 
   const display = document.querySelector('.display')
+  const displayHistory = display.querySelector('.display__history')
   const displayResult = display.querySelector('.display__result')
   const calcButtons = document.querySelectorAll('.buttons button')
 
@@ -30,10 +31,7 @@ function main () {
         deleteLastCharacter()
         break
       case 'operator':
-        if (operator === null) {
-          operator = textContent
-          displayCharacter(textContent)
-        }
+        addOperator(textContent)
         break
       case 'decimal':
         // don't allow multiple decimals
@@ -48,6 +46,7 @@ function main () {
         setOperands()
         result = calculate(firstOperand, operator, secondOperand)
         displayResult.textContent = result
+        operator = null
         break
       default: // number
         displayCharacter(textContent)
@@ -67,6 +66,7 @@ function main () {
 
   function clearAll () {
     displayResult.textContent = '0'
+    displayHistory.textContent = ''
     currentDisplayValue = '0'
     firstOperand = null
     operator = null
@@ -112,14 +112,29 @@ function main () {
         return
     }
 
-    console.log({
-      firstOperand,
-      operator,
-      secondOperand,
-      result
-    })
-
     return result
+  }
+
+  function moveToHistory (firstOperand, operator, secondOperand, result) {
+    displayHistory.textContent = `${firstOperand} ${operator} ${secondOperand} = ${result}`
+  }
+
+  function addOperator (toBeAddedOperator) {
+    // if there's no operator, add it
+    if (operator === null) {
+      operator = toBeAddedOperator
+      displayCharacter(operator)
+    } else {
+      //
+      setOperands()
+      if (!isNaN(secondOperand)) {
+        result = calculate(firstOperand, operator, secondOperand)
+        displayResult.textContent = result
+        moveToHistory(firstOperand, operator, secondOperand, result)
+        operator = toBeAddedOperator
+        displayCharacter(operator)
+      }
+    }
   }
 
   function canAddDecimal () {
