@@ -26,6 +26,9 @@ function main () {
     const dataType = target.dataset.type
 
     switch (dataType) {
+      case 'backspace':
+        deleteLastCharacter()
+        break
       case 'operator':
         if (operator === null) {
           operator = textContent
@@ -33,7 +36,9 @@ function main () {
         }
         break
       case 'decimal':
-        console.log('decimal')
+        // don't allow multiple decimals
+        if (!canAddDecimal()) return
+        displayCharacter(textContent)
         break
       case 'clear':
         clearAll()
@@ -94,11 +99,10 @@ function main () {
         break
       case '/':
         if (secondOperand === 0) {
-          currentDisplayValue = 'Error: Division by 0'
-          return
+          result = 'Error - division by zero'
+        } else {
+          result = firstOperand / secondOperand
         }
-
-        result = firstOperand / secondOperand
 
         break
       case '%':
@@ -116,6 +120,39 @@ function main () {
     })
 
     return result
+  }
+
+  function canAddDecimal () {
+    const currentDisplayValue = displayResult.textContent
+    const lastCharacter = currentDisplayValue[currentDisplayValue.length - 1]
+
+    if (lastCharacter === '.') return false
+
+    // check if it's the second operand
+    const operatorRegex = /[+\-*/%]/
+    const operands = currentDisplayValue.split(operatorRegex)
+
+    if (operands.length > 1) {
+      const secondOperand = operands[1]
+      if (secondOperand.includes('.')) return false
+    }
+
+    // check if it's the first operand
+    if (currentDisplayValue.includes('.')) return false
+
+    return true
+  }
+
+  function deleteLastCharacter () {
+    const currentDisplayValue = displayResult.textContent
+    const newDisplayValue = currentDisplayValue.slice(0, -1)
+
+    if (newDisplayValue === '') {
+      displayResult.textContent = '0'
+      return
+    }
+
+    displayResult.textContent = newDisplayValue
   }
 
   // event listeners
